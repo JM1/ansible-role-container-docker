@@ -1,0 +1,13 @@
+---
+- apt:
+    update_cache: yes
+    upgrade: dist
+
+- apt:
+    name: "{{ __apt_packages }}"
+
+# resolvconf is not necessary (and indeed does not work),
+# because /etc/resolv.conf is mounted (?) as volume from host
+- apt:
+    name: resolvconf
+    state: absent
