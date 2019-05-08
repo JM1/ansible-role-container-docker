@@ -1,13 +1,19 @@
 ---
-- apt:
-    update_cache: yes
-    upgrade: dist
+- set_fact:
+    apt_packages: "{{ __apt_packages|list }}"
+  when: apt_packages|default(None) == None
 
-- apt:
-    name: "{{ __apt_packages }}"
+- include_role:
+    name: jm1.virtual_pkg
+  vars:
+     package_name: "jm1-container-docker"
+     package_depends: "{{ apt_packages }}"
 
 # resolvconf is not necessary (and indeed does not work),
 # because /etc/resolv.conf is mounted (?) as volume from host
 - apt:
     name: resolvconf
     state: absent
+
+- set_fact:
+    apt_packages: !!null
