@@ -2,3 +2,6 @@
 roles:
 - jm1.common
 - jm1.base_system
+
+collections:
+- jm1.pkg # required by jm1.base_system
