@@ -1,6 +1,7 @@
 ---
-# resolvconf is not necessary (and indeed does not work),
-# because /etc/resolv.conf is mounted (?) as volume from host
-- apt:
+- name: Remove resolvconf because /etc/resolv.conf is mounted readonly from host
+  # resolvconf does not work in Docker containers, because /etc/resolv.conf is mounted readonly from host
+  # Ref.: https://docs.docker.com/config/containers/container-networking/#dns-services
+  apt:
     name: resolvconf
     state: absent
